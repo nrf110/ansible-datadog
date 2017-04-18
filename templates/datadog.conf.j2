@@ -1,0 +1,23 @@
+[Main]
+
+# The host of the Datadog intake server to send Agent data to
+{% if datadog.config.url is undefined -%}
+dd_url: {{ datadog.url|default('https://app.datadoghq.com') }}
+{% endif %}
+
+{% if datadog.config.api_key is undefined -%}
+api_key: {{ datadog.api_key|default('<api key not set>') }}
+{% endif %}
+
+{% for key, value in datadog.config.items() -%}
+{{ key }}: {{ value}}
+{% endfor %}
+
+{% if datadog.config_ex is defined -%}
+{% for section, config in datadog.config_ex.items() %}
+[{{ section }}]
+{% for key, value in config.items() -%}
+{{ key }}: {{ value }}
+{% endfor %}
+{% endfor %}
+{% endif %}

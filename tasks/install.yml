@@ -1,0 +1,29 @@
+- name: Install dependencies
+  apt:
+    name: apt-transport-https
+    state: present
+    update_cache: yes
+
+- name: Add DataDog repo
+  apt_repository:
+    repo: "{{ datadog.apt.repo }}"
+    state: present
+    update_cache: yes
+
+- name: Install ubuntu apt-key server
+  apt_key:
+    id: C7A7DA52
+    keyserver: hkp://keyserver.ubuntu.com:80
+    state: present
+
+- name: Install pinned version of DataDog
+  apt:
+    name: datadog-agent={{ datadog.version }}
+    state: present
+  when: datadog.version is defined
+
+- name: Install latest version of DataDog
+  apt:
+    name: datadog-agent
+    state: latest
+  when: datadog.version is undefined

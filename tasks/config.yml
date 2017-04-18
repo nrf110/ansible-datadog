@@ -1,0 +1,17 @@
+---
+- name: Configure DataDog
+  template:
+    src: datadog.conf.j2
+    dest: "{{ datadog.config_file }}"
+    owner: dd-agent
+    group: dd-agent
+  notify: restart datadog
+
+- name: Create check configuration files
+  template:
+    src: checks.yml.j2
+    dest: "/etc/dd-agent/conf.d/{{ item }}.yaml"
+    owner: dd-agent
+    group: dd-agent
+  with_items: "{{ datadog.checks|default([])|list }}"
+  notify: restart datadog

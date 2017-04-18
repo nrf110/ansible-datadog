@@ -1,0 +1,7 @@
+---
+- name: Start DataDog Service
+  service:
+    name: datadog-agent
+    state: started
+    enabled: yes
+  register: datadog_started
