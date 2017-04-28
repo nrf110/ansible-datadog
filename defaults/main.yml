@@ -1,7 +1,5 @@
-datadog:
-  config_file: /etc/dd-agent/datadog.conf
-  apt:
-    repo: "deb http://apt.datadoghq.com/ stable main"
-  config:
-    use_mount: 'no'
-    tags: 'untagged:true'
+datadog_config_file: /etc/dd-agent/datadog.conf
+datadog_apt_repo: "deb http://apt.datadoghq.com/ stable main"
+datadog_config:
+  use_mount: 'no'
+  tags: 'untagged:true'

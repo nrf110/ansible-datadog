@@ -3,5 +3,4 @@
   roles:
     - ansible-datadog
   vars:
-    datadog:
-      api_key: 'my fake key'
+    datadog_api_key: 'my fake key'

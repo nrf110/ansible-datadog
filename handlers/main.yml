@@ -1,4 +1,4 @@
 ---
 - name: restart datadog
   action: service name=datadog-agent state=restarted enabled=yes
-  when: datadog.restart_on_change|default(False) and datadog_started.changed
+  when: datadog_restart_on_change|default(False) and datadog_started.changed

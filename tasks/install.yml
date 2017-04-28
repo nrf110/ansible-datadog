@@ -4,26 +4,26 @@
     state: present
     update_cache: yes
 
-- name: Add DataDog repo
-  apt_repository:
-    repo: "{{ datadog.apt.repo }}"
-    state: present
-    update_cache: yes
-
 - name: Install ubuntu apt-key server
   apt_key:
     id: C7A7DA52
     keyserver: hkp://keyserver.ubuntu.com:80
     state: present
 
+- name: Add DataDog repo
+  apt_repository:
+    repo: "{{ datadog_apt_repo }}"
+    state: present
+    update_cache: yes
+
 - name: Install pinned version of DataDog
   apt:
-    name: datadog-agent={{ datadog.version }}
+    name: datadog-agent={{ datadog_version }}
     state: present
-  when: datadog.version is defined
+  when: datadog_version is defined
 
 - name: Install latest version of DataDog
   apt:
     name: datadog-agent
     state: latest
-  when: datadog.version is undefined
+  when: datadog_version is undefined
